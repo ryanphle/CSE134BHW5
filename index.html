@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wishlist</title>
+</head>
+<body>
+    <h1>Wishlist</h1>
+    <!-- template for wishlist items -->
+    <template id="itemTemplate">
+        <li>
+            <div id="itemNode">
+                <h3 class="item"></h3>
+                <p class="price"></p>
+                <p class="category"></p>
+                <img class="image">
+                <p class="comment"></p>
+                <button class="updateItem">Update</button>
+                <button class="deleteItem">Delete</button>
+            </div>
+        </li>
+    </template>
+
+    <ul id="wishlist">
+    </ul>
+
+    <button id="loginBtn" style="display: none;">Login</button>
+    <button id="logoutBtn">Logout</button>
+    <button id="addItemBtn">Add Item</button>
+
+    <!--- Dialogs to add or update an item -->
+    <dialog id="addItemDialog" style="display: none">
+        Item Name: <input type="text" id="addItem" placeholder="Item Name">
+        Item Price: <input type="number" id="addPrice" placeholder="Price">
+        Item Category: 
+        <select id="addCategory">
+            <option value="">Category 1</option>
+            <option value="">Category 2</option>
+            <option value="">Category 3</option>
+        </select>
+        <!-- Image Upload: <input type="file" id="addImage" accept="image/*"> -->
+        Image Upload: <input type="text" id="addImage">
+
+        Comment: <input type="text" id="addComment">
+        <button id="addItemSubmit">Submit</button>
+        <button id="addItemCancel">Cancel</button>
+    </dialog>
+
+    <dialog id="updateItemDialog" style="display: none">
+        Item Name: <input type="text" id="updateItem" placeholder="Item Name">
+        Item Price: <input type="number" id="updatePrice" placeholder="Price">
+        Item Category: 
+        <select id="updateCategory">
+            <option value="">Category 1</option>
+            <option value="">Category 2</option>
+            <option value="">Category 3</option>
+        </select>
+        Image Upload: <input type="file" id="updateImage" accept="image/*">
+        Comment: <input type="text" id="updateComment">
+    </dialog>
+    <!-- hidden button to not throw errors in the console -->
+    <button id="createBtn" style="display: none;">Submit</button>
+    <!-- scripts to handle logic -->
+    <script type="text/javascript" src="state.js"></script>
+    <script type="text/javascript" src="ajax.js"></script>
+    <script type="text/javascript" src="users.js"></script>
+    <script type="text/javascript" src="wishlist.js"></script>
+    <script>indexLoginCheck();</script>
+    <noscript>You need to turn on JavaScript for this page to work!</noscript>
+</body>
+</html>
