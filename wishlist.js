@@ -6,19 +6,32 @@ let addItemBtn = document.getElementById("addItemBtn");
 let addItemDialog = document.getElementById("addItemDialog");
 let addItemCancel = document.getElementById("addItemCancel");
 let addItemSubmit = document.getElementById("addItemSubmit");
+let updateItemCancel = document.getElementById("updateItemCancel");
+let updateItemDialog = document.getElementById("updateItemDialog");
 let wishlist = document.getElementById("wishlist");
 
 /* LISTENERS */
 
 addItemBtn.addEventListener("click", () => {
-    addItemDialog.setAttribute("style", "display: block;");
+    addItemDialog.setAttribute("style", "display: inherit;");
 });
 addItemCancel.addEventListener("click", () => {
     addItemDialog.setAttribute("style", "display: none;");
 });
 addItemSubmit.addEventListener("click", () => {
-    processAddItem();
+    let values = {
+        "item":document.getElementById("addItem").value,
+        "price":document.getElementById("addPrice").value,
+        "image":document.getElementById("addImage").files[0],
+        "category":document.getElementById("addCategory").value,
+        "comment":document.getElementById("addComment").value
+    }
+
+    processItem(addItem, values);
     addItemDialog.setAttribute("style", "display: none;");
+});
+updateItemCancel.addEventListener("click", () => {
+    updateItemDialog.setAttribute("style", "display: none;");
 });
 window.addEventListener("load", () => { loadWishlist(); });
 
@@ -26,8 +39,7 @@ window.addEventListener("load", () => { loadWishlist(); });
 
 let addItemCallBack = (status, response) => {
     if (status == 200) {
-        let resp = JSON.parse(response);
-        renderItem(resp);
+        location.reload();
     }
 }
 
@@ -48,35 +60,32 @@ function loadWishlist() {
     sendRequest("GET", endpoint, {}, {}, loadWishlistCallback);
 }
 
-// I FORGOT WHAT THIS FUNCTION WAS FOR
 function getItemDetails(id) {
     let item = document.getElementById(id);
-    let image = item.querySelector(".image").files[0];  // TODO
 
     return {
         "id":id,
-        "name":item.querySelector(".item").value,
-        "price":item.querySelector(".price").value,
-        "category":item.querySelector(".category").value,
-        "image":image,
-        "comment":item.querySelector(".comment").value
+        "item":item.querySelector(".item").innerText,
+        "price":item.querySelector(".price").innerText,
+        "category":item.querySelector(".category").innerText,
+        "image":item.querySelector(".image").src,
+        "comment":item.querySelector(".comment").innerText
     }
 }
 
-function processAddItem() {
-    let item = document.getElementById("addItem").value;
-    let price = document.getElementById("addPrice").value;
-    let category = document.getElementById("addCategory").value;
-    let comment = document.getElementById("addComment").value;
+function processItem(processFunc, currValues) {
+    let item = currValues["item"];
+    let price = currValues["price"];
+    let category = currValues["category"];
+    let comment = currValues["comment"];
+    let image = currValues["image"];
 
-    let image = document.getElementById("addImage").files[0];
     let reader = new FileReader();
-
     let values = {
         "item":item,
         "price":price,
         "category":category,
-        "image":null,
+        "image":image,
         "comment": comment
     }
 
@@ -91,19 +100,19 @@ function processAddItem() {
             canvas.height = dim;
             canvas.width = dim;
             ctx.drawImage(img, 0, 0, dim, dim);
-            console.log(canvas.height, canvas.width);
             values["image"] = canvas.toDataURL();
-            addItem(values);
+            processFunc(values);
         })
         img.src = reader.result;
     });
 
-    if (image) {
+    // Load a new file if a new file is passed in
+    if (!(typeof image === "string") && image) {
         reader.readAsDataURL(image);
         return
     }
 
-    addItem(values);
+    processFunc(values);
 }
 
 function addItem(payload) {
@@ -113,8 +122,26 @@ function addItem(payload) {
 }
 
 let updateItem = (id) => {
-    // Grab the values of the updated item
-    window.localStorage.setItem("updateId", id);
+    let updateAjax = (payload) => {
+        let endpoint = "/wishlists/"+id+"/replace?access_token="+access_token;
+        let headers = {"Content-Type":"application/x-www-form-urlencoded"};
+        sendRequest("POST", endpoint, headers, payload, addItemCallBack);
+    }
+
+    let image = document.getElementById("updateImage").files[0];
+    if (!image) {
+        image = getItemDetails(id)["image"];
+    }
+
+    let values = {
+        "item":document.getElementById("updateItem").value,
+        "price":document.getElementById("updatePrice").value,
+        "category":document.getElementById("updateCategory").value,
+        "comment":document.getElementById("updateComment").value,
+        "image":image
+    }
+
+    processItem(updateAjax, values);
 }
 
 let deleteItem = (id) => {
@@ -131,10 +158,20 @@ function setItemButtonHandlers(id, deleteFunc) {
 
     // TODO ADD LISTENERS
     updateBtn.addEventListener("click", () => {
-        updateItem(id); 
+        updateItemDialog.setAttribute("style", "display: inherit;");
+        let values = getItemDetails(id);
+
+        document.getElementById("updateItem").value = values["item"];
+        document.getElementById("updatePrice").value = values["price"];
+        document.getElementById("updateCategory").value = values["category"];
+        document.getElementById("updateComment").value = values["comment"];
+
+        let updateItemSubmit = document.getElementById("updateItemSubmit");
+        updateItemSubmit.addEventListener("click", () => {
+            updateItem(id); 
+        });
     });
 
-    let d = deleteItem;
     deleteBtn.addEventListener("click", () => {
         deleteFunc(id); 
     });

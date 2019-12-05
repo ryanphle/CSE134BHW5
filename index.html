@@ -33,9 +33,9 @@
         Item Price: <input type="number" id="addPrice" placeholder="Price">
         Item Category: 
         <select id="addCategory">
-            <option value="">Category 1</option>
-            <option value="">Category 2</option>
-            <option value="">Category 3</option>
+            <option value="Category 1">Category 1</option>
+            <option value="Category 2">Category 2</option>
+            <option value="Category 3">Category 3</option>
         </select>
         Image Upload: <input type="file" id="addImage" accept="image/*">
         <!-- Image Upload: <input type="text" id="addImage"> -->
@@ -50,12 +50,14 @@
         Item Price: <input type="number" id="updatePrice" placeholder="Price">
         Item Category: 
         <select id="updateCategory">
-            <option value="">Category 1</option>
-            <option value="">Category 2</option>
-            <option value="">Category 3</option>
+            <option value="Category 1">Category 1</option>
+            <option value="Category 2">Category 2</option>
+            <option value="Category 3">Category 3</option>
         </select>
         Image Upload: <input type="file" id="updateImage" accept="image/*">
         Comment: <input type="text" id="updateComment">
+        <button id="updateItemSubmit">Submit</button>
+        <button id="updateItemCancel">Cancel</button>
     </dialog>
     <!-- hidden button to not throw errors in the console -->
     <button id="createBtn" style="display: none;">Submit</button>
