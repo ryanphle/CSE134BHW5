@@ -2,14 +2,17 @@
 <html>
 <head>
     <title>Login</title>
+    <link type="text/css" rel="stylesheet" href="login.css"/>
 </head>
 <body>
-    <h1>Login Page</h1>
-    Username: <input required type="text" id="username" placeholder="Username or Email"/>
-    Password: <input required type="password" id="password" placeholder="Password"/>
+    <h1>Login to your Wishlist</h1>
+    Username or Email: <input required type="text" id="username" placeholder="ex. drsanta75"/><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password: 
+    <input required type="password" id="password" placeholder="ex. *******"/><br><br>
     <button id="loginBtn">Login</button>
     <button id="logoutBtn" style="display: none;">Logout</button>
     <button id="createBtn" style="display: none;">Submit</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.js"></script>
     <script type="text/javascript" src="state.js"></script>
     <script type="text/javascript" src="ajax.js"></script>
     <script type="text/javascript" src="users.js"></script>

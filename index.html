@@ -1,67 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Wishlist</title>
+    <title>My Wishlist</title>
+    <link type="text/css" rel="stylesheet" href="wishlist.css"/>
 </head>
 <body>
-    <h1>Wishlist</h1>
+    <div class="center">
+        <h1 id="header">MY WISHLIST</h1>
+        <h2>ayye presents!</h2>
+        <button id="logoutBtn">Logout</button>
+        <button id="addItemBtn">Add Item</button>
+    </div>
+
     <!-- template for wishlist items -->
     <template id="itemTemplate">
-        <li>
-            <div id="itemNode">
-                Item: <h3 class="item"></h3>
-                Price: <p class="price"></p>
-                Category: <p class="category"></p>
-                <img class="image">
-                Comments: <p class="comment"></p>
+        <div class="itemNode">
+            <div class="center">
+            <span class="item"></span><br>
+            </div>
+            <img class="image"><br>
+            Price: $<span class="price"></span><br>
+            Category: <span class="category"></span><br>
+            Comments:<br> <span class="comment"></span><br><br>
+            <div class="center">
                 <button class="updateItem">Update</button>
                 <button class="deleteItem">Delete</button>
             </div>
-        </li>
+        </div>
     </template>
 
-    <ul id="wishlist">
-    </ul>
-
-    <button id="loginBtn" style="display: none;">Login</button>
-    <button id="logoutBtn">Logout</button>
-    <button id="addItemBtn">Add Item</button>
+    <div id="wishlist">
+    </div>
 
     <!--- Dialogs to add or update an item -->
     <dialog id="addItemDialog" style="display: none">
-        Item Name: <input type="text" id="addItem" placeholder="Item Name">
-        Item Price: <input type="number" id="addPrice" placeholder="Price">
+        <div class="center">
+            <h3>Add a new Item</h3>
+        </div>
+        Item Name: <input type="text" id="addItem" placeholder="Item Name"><br>
+        Item Price: <input type="number" id="addPrice" placeholder="Price"><br>
         Item Category: 
         <select id="addCategory">
-            <option value="Category 1">Category 1</option>
-            <option value="Category 2">Category 2</option>
-            <option value="Category 3">Category 3</option>
-        </select>
-        Image Upload: <input type="file" id="addImage" accept="image/*">
+            <option value="Electronics">Electronics</option>
+            <option value="Toys">Toys</option>
+            <option value="Beauty">Beauty</option>
+            <option value="Appliances">Appliances</option>
+            <option value="Gift card">Gift card</option>
+            <option value="Other">Other</option>
+        </select><br>
+        Image Upload: <input type="file" id="addImage" accept="image/*"><br>
         <!-- Image Upload: <input type="text" id="addImage"> -->
 
-        Comment: <input type="text" id="addComment">
+        Comment: <input type="text" id="addComment"><br>
         <button id="addItemSubmit">Submit</button>
         <button id="addItemCancel">Cancel</button>
+        <p class="errorMessage" id="addItemErrorMsg" style="display: none;">
+            *Item name can't be blank
+        </p>
     </dialog>
 
     <dialog id="updateItemDialog" style="display: none">
-        Item Name: <input type="text" id="updateItem" placeholder="Item Name">
-        Item Price: <input type="number" id="updatePrice" placeholder="Price">
+        <div class="center">
+            <h3>Update this item</h3>
+        </div>
+        Item Name: <input type="text" id="updateItem" placeholder="Item Name"><br>
+        Item Price: <input type="number" id="updatePrice" placeholder="Price"><br>
         Item Category: 
         <select id="updateCategory">
-            <option value="Category 1">Category 1</option>
-            <option value="Category 2">Category 2</option>
-            <option value="Category 3">Category 3</option>
-        </select>
-        Image Upload: <input type="file" id="updateImage" accept="image/*">
-        Comment: <input type="text" id="updateComment">
+            <option value="Electronics">Electronics</option>
+            <option value="Toys">Toys</option>
+            <option value="Beauty">Beauty</option>
+            <option value="Appliances">Appliances</option>
+            <option value="Gift card">Gift card</option>
+            <option value="Other">Other</option>
+        </select><br>
+        Image Upload: <input type="file" id="updateImage" accept="image/*"><br>
+        Comment: <input type="text" id="updateComment"><br>
         <button id="updateItemSubmit">Submit</button>
         <button id="updateItemCancel">Cancel</button>
+        <p class="errorMessage" id="updateItemErrorMsg" style="display: none;">
+            *Item name can't be blank
+        </p>
     </dialog>
-    <!-- hidden button to not throw errors in the console -->
+    <!-- hidden buttons to not throw errors in the console -->
     <button id="createBtn" style="display: none;">Submit</button>
+    <button id="loginBtn" style="display: none;">Login</button>
     <!-- scripts to handle logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.js"></script>
     <script type="text/javascript" src="state.js"></script>
     <script type="text/javascript" src="ajax.js"></script>
     <script type="text/javascript" src="users.js"></script>

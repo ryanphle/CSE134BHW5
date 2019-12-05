@@ -15,9 +15,12 @@ let wishlist = document.getElementById("wishlist");
 addItemBtn.addEventListener("click", () => {
     addItemDialog.setAttribute("style", "display: inherit;");
 });
+
 addItemCancel.addEventListener("click", () => {
+    document.getElementById("addItemErrorMsg").setAttribute("style", "display: none;");
     addItemDialog.setAttribute("style", "display: none;");
 });
+
 addItemSubmit.addEventListener("click", () => {
     let values = {
         "item":document.getElementById("addItem").value,
@@ -27,12 +30,22 @@ addItemSubmit.addEventListener("click", () => {
         "comment":document.getElementById("addComment").value
     }
 
-    processItem(addItem, values);
-    addItemDialog.setAttribute("style", "display: none;");
+    // Checks for at least item name
+    if (values["item"]) {
+        processItem(addItem, values);
+        addItemDialog.setAttribute("style", "display: none;");
+        document.getElementById("addItemErrorMsg").setAttribute("style", "display: none;");
+    }
+    else {
+        console.log("no item!");
+        document.getElementById("addItemErrorMsg").setAttribute("style", "display: inherit;");
+    }
 });
+
 updateItemCancel.addEventListener("click", () => {
     updateItemDialog.setAttribute("style", "display: none;");
 });
+
 window.addEventListener("load", () => { loadWishlist(); });
 
 /* CALLBACKS */
@@ -89,7 +102,7 @@ function processItem(processFunc, currValues) {
         "comment": comment
     }
 
-    // Processing the image
+    // Resizing the image to a standard size
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
     let img = new Image();
@@ -181,7 +194,7 @@ function renderItem(values) {
     let id = values["id"];
     let temp = document.getElementById("itemTemplate");
     let clone = temp.content.cloneNode(true);
-    let newNode = clone.querySelector("li");
+    let newNode = clone.querySelector(".itemNode");
 
     newNode.setAttribute("id", id);
 

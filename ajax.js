@@ -3,7 +3,11 @@ let base = "http://fa19server.appspot.com/api";
 function createPayloadURI(values) {
     let ret = "";
     for (var key in values) {
-        ret += key + "=" + encodeURIComponent(values[key]) + "&";
+        let val = DOMPurify.sanitize(values[key]);
+        if (!val) {
+            val = "No " + key;
+        }
+        ret += key + "=" + encodeURIComponent(val) + "&";
     }
     return ret;
 }
@@ -16,7 +20,7 @@ function sendRequest(method, endpoint, headers, payload, callback) {
             callback(this.status, this.response);
         }
     }
-    
+
     xhttp.open(method, base+endpoint);
     // Set request headers for content type
     for (var key in headers) {
