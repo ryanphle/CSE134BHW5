@@ -71,14 +71,36 @@ function processAddItem() {
 
     let image = document.getElementById("addImage").files[0];
     let reader = new FileReader();
-    
 
     let values = {
         "item":item,
         "price":price,
         "category":category,
-        "image":image,
+        "image":null,
         "comment": comment
+    }
+
+    // Processing the image
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    let img = new Image();
+
+    reader.addEventListener("load", () => {
+        img.addEventListener("load", () => {
+            let dim = 150;
+            canvas.height = dim;
+            canvas.width = dim;
+            ctx.drawImage(img, 0, 0, dim, dim);
+            console.log(canvas.height, canvas.width);
+            values["image"] = canvas.toDataURL();
+            addItem(values);
+        })
+        img.src = reader.result;
+    });
+
+    if (image) {
+        reader.readAsDataURL(image);
+        return
     }
 
     addItem(values);
@@ -130,7 +152,7 @@ function renderItem(values) {
     newNode.querySelector(".item").innerHTML = values["item"];
     newNode.querySelector(".price").innerHTML = values["price"];
     newNode.querySelector(".category").innerHTML = values["category"];
-    newNode.querySelector(".image").innerHTML = values["image"]; // TODO Process the image
+    newNode.querySelector(".image").setAttribute("src", values["image"]); // TODO Process the image
     newNode.querySelector(".comment").innerHTML = values["comment"];
 
     // Add the new node to the page

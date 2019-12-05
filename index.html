@@ -9,11 +9,11 @@
     <template id="itemTemplate">
         <li>
             <div id="itemNode">
-                <h3 class="item"></h3>
-                <p class="price"></p>
-                <p class="category"></p>
+                Item: <h3 class="item"></h3>
+                Price: <p class="price"></p>
+                Category: <p class="category"></p>
                 <img class="image">
-                <p class="comment"></p>
+                Comments: <p class="comment"></p>
                 <button class="updateItem">Update</button>
                 <button class="deleteItem">Delete</button>
             </div>
@@ -37,8 +37,8 @@
             <option value="">Category 2</option>
             <option value="">Category 3</option>
         </select>
-        <!-- Image Upload: <input type="file" id="addImage" accept="image/*"> -->
-        Image Upload: <input type="text" id="addImage">
+        Image Upload: <input type="file" id="addImage" accept="image/*">
+        <!-- Image Upload: <input type="text" id="addImage"> -->
 
         Comment: <input type="text" id="addComment">
         <button id="addItemSubmit">Submit</button>
