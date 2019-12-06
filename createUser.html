@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Create User</title>
+    <style>
+        body {
+            background: lightyellow;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <h1>Create a new user</h1>
-    Username: <input required type="text" id="createUN" placeholder="Username"/>
-    Email: <input required type="text" id="createEmail" placeholder="Email"/>
-    Password: <input required type="password" id="createPW" placeholder="Password"/>
-    <button id="createBtn">Submit</button>
+    Username: <input required type="text" id="createUN" placeholder="Username"/><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email: <input required type="text" id="createEmail" placeholder="Email"/><br>
+    &nbsp;Password: <input required type="password" id="createPW" placeholder="Password"/><br><br>
+    <button id="createBtn">Create Account</button>
     <p id="successMsg" style="color: green; display: none;">Account created!</p>
     <button id="loginBtn" style="display: none;">Login</button>
     <button id="logoutBtn" style="display: none;">Logout</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.js"></script>
-    <script type="text/javascript" src="state.js"></script>
-    <script type="text/javascript" src="ajax.js"></script>
-    <script type="text/javascript" src="users.js"></script>
+    <script src="state.js"></script>
+    <script src="ajax.js"></script>
+    <script src="users.js"></script>
     <noscript>You need to turn on JavaScript for this page to work!</noscript>
 </body>
 </html>

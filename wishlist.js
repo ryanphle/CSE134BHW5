@@ -30,14 +30,25 @@ addItemSubmit.addEventListener("click", () => {
         "comment":document.getElementById("addComment").value
     }
 
+    // Gets star values
+    let stars = 0;
+    for (let i = 1; i <= 5; i++) {
+        let idStr = "addStar" + i;
+        if (document.getElementById(idStr).checked) {
+            stars = i;
+            break;
+        }
+    }
+
+    values["comment"] = String(stars) + values["comment"];
+    
     // Checks for at least item name
-    if (values["item"]) {
+    if (values["item"] && values["price"]) {
         processItem(addItem, values);
         addItemDialog.setAttribute("style", "display: none;");
         document.getElementById("addItemErrorMsg").setAttribute("style", "display: none;");
     }
     else {
-        console.log("no item!");
         document.getElementById("addItemErrorMsg").setAttribute("style", "display: inherit;");
     }
 });
@@ -169,7 +180,6 @@ function setItemButtonHandlers(id, deleteFunc) {
     let updateBtn = itemNode.querySelector(".updateItem");
     let deleteBtn = itemNode.querySelector(".deleteItem");
 
-    // TODO ADD LISTENERS
     updateBtn.addEventListener("click", () => {
         updateItemDialog.setAttribute("style", "display: inherit;");
         let values = getItemDetails(id);
@@ -202,8 +212,19 @@ function renderItem(values) {
     newNode.querySelector(".item").innerHTML = values["item"];
     newNode.querySelector(".price").innerHTML = values["price"];
     newNode.querySelector(".category").innerHTML = values["category"];
-    newNode.querySelector(".image").setAttribute("src", values["image"]); // TODO Process the image
-    newNode.querySelector(".comment").innerHTML = values["comment"];
+    newNode.querySelector(".image").setAttribute("src", values["image"]); 
+
+    // Extract the comment and stars
+    let stars = parseInt(values["comment"].substring(0,1));
+    let comment = values["comment"].substring(1, values["comment"].length);
+
+    newNode.querySelector(".comment").innerHTML = comment;
+    
+    // Fill in the stars
+    for (let i = 1; i <= stars; i++) {
+        let starClass = ".itemStar" + String(i);
+        newNode.querySelector(starClass).setAttribute("style", "color: #ffc700;");
+    }
 
     // Add the new node to the page
     wishlist.appendChild(clone);

@@ -10,11 +10,15 @@ body {
 }
 
 .item {
-    position: inline-block;
+    position: relative;
+    top: 10%;
+    display: inline-block;
     height: 20px;
-    margin-bottom: 50px;
     color: yellow;
     text-shadow: 2px 2px orange;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .errorMessage {
@@ -28,6 +32,7 @@ body {
 .itemNode {
     margin: 15px;
     padding: 10px;
+    height: 375px;
 }
 
 dialog {
@@ -36,15 +41,12 @@ dialog {
     left: 25%;
     transform: translate(-40%, -25%);
     width: 300px;
+    background-color: #ffeec7;
+    border: 2px solid orange;
 }
 
 .center {
     text-align: center;
-}
-
-.item {
-    font-size: 20px;
-    font-weight: bold;
 }
 
 .comment {
@@ -52,4 +54,50 @@ dialog {
     width: 150px;
     font-size: 12px;
     color: #a3a3a3;
+}
+
+/* Borrowed with some modification from github repo: 
+https://github.com/mukulkant/Star-rating-using-pure-css/blob/master/style.css */
+.rate {
+    margin: 0;
+    float: left;
+    height: 50px;
+    padding: 0 10px;
+    width: 90%;
+    align-content: center;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size: 25px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+/* My own star css to display */
+.itemStar {
+    color: lightgrey;
 }

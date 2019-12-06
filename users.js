@@ -15,6 +15,7 @@ let loginCallback = (status, response) => {
     }
     else {
         console.log(status, response);
+        document.getElementById("loginErrorMsg").setAttribute("style", "display: inherit;");
     }
 }
 

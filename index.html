@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<!--- 
+    DOES NOT VALIDATE because dialog tag is not compatible with all browsers
+    Otherwise, everything else is fine.
+-->
+<html lang="en">
 <head>
     <title>My Wishlist</title>
+    <meta charset= "UTF-8">
     <link type="text/css" rel="stylesheet" href="wishlist.css"/>
 </head>
 <body>
@@ -22,6 +27,12 @@
             Price: $<span class="price"></span><br>
             Category: <span class="category"></span><br>
             Comments:<br> <span class="comment"></span><br><br>
+            Rating: 
+            <span class="itemStar itemStar1">★</span>
+            <span class="itemStar itemStar2">★</span>
+            <span class="itemStar itemStar3">★</span>
+            <span class="itemStar itemStar4">★</span>
+            <span class="itemStar itemStar5">★</span>
             <div class="center">
                 <button class="updateItem">Update</button>
                 <button class="deleteItem">Delete</button>
@@ -37,9 +48,9 @@
         <div class="center">
             <h3>Add a new Item</h3>
         </div>
-        Item Name: <input type="text" id="addItem" placeholder="Item Name"><br>
-        Item Price: <input type="number" id="addPrice" placeholder="Price"><br>
-        Item Category: 
+        Item: <input required type="text" id="addItem" placeholder="ex. Blender"><br>
+        Price: <input required type="number" id="addPrice" placeholder="ex. 34.99"><br>
+        Category: 
         <select id="addCategory">
             <option value="Electronics">Electronics</option>
             <option value="Toys">Toys</option>
@@ -47,15 +58,27 @@
             <option value="Appliances">Appliances</option>
             <option value="Gift card">Gift card</option>
             <option value="Other">Other</option>
-        </select><br>
-        Image Upload: <input type="file" id="addImage" accept="image/*"><br>
+        </select><br><br>
+        <!-- Borrowed with some modification from github repo: 
+https://github.com/mukulkant/Star-rating-using-pure-css/blob/master/style.css  -->
+        <div class="rate">
+            Star Rating:
+            <input type="radio" id="addStar5" name="rate" value="5" /><label for="addStar5" title="text">5 stars</label>
+            <input type="radio" id="addStar4" name="rate" value="4" /><label for="addStar4" title="text">4 stars</label>
+            <input type="radio" id="addStar3" name="rate" value="3" /><label for="addStar3" title="text">3 stars</label>
+            <input type="radio" id="addStar2" name="rate" value="2" /><label for="addStar2" title="text">2 stars</label>
+            <input type="radio" id="addStar1" name="rate" value="1" /><label for="addStar1" title="text">1 star</label>
+        </div><br>
+        Image Upload: <input type="file" id="addImage" accept="image/*"><br><br>
         <!-- Image Upload: <input type="text" id="addImage"> -->
 
-        Comment: <input type="text" id="addComment"><br>
-        <button id="addItemSubmit">Submit</button>
-        <button id="addItemCancel">Cancel</button>
+        Comment: <input type="text" id="addComment"><br><br>
+        <div class="center">
+            <button id="addItemCancel">Cancel</button>
+            <button id="addItemSubmit">Submit</button>
+        </div>
         <p class="errorMessage" id="addItemErrorMsg" style="display: none;">
-            *Item name can't be blank
+            *Missing Required fields
         </p>
     </dialog>
 
@@ -63,9 +86,9 @@
         <div class="center">
             <h3>Update this item</h3>
         </div>
-        Item Name: <input type="text" id="updateItem" placeholder="Item Name"><br>
-        Item Price: <input type="number" id="updatePrice" placeholder="Price"><br>
-        Item Category: 
+        Item: <input required type="text" id="updateItem" placeholder="Item"><br>
+        Price: <input required type="number" id="updatePrice" placeholder="Price"><br>
+        Category: 
         <select id="updateCategory">
             <option value="Electronics">Electronics</option>
             <option value="Toys">Toys</option>
@@ -73,13 +96,15 @@
             <option value="Appliances">Appliances</option>
             <option value="Gift card">Gift card</option>
             <option value="Other">Other</option>
-        </select><br>
-        Image Upload: <input type="file" id="updateImage" accept="image/*"><br>
-        Comment: <input type="text" id="updateComment"><br>
-        <button id="updateItemSubmit">Submit</button>
-        <button id="updateItemCancel">Cancel</button>
+        </select><br><br>
+        Image Upload: <input type="file" id="updateImage" accept="image/*"><br><br>
+        Comment: <input type="text" id="updateComment"><br><br>
+        <div class="center">
+            <button id="updateItemCancel">Cancel</button>
+            <button id="updateItemSubmit">Submit</button>
+        </div>
         <p class="errorMessage" id="updateItemErrorMsg" style="display: none;">
-            *Item name can't be blank
+            *Missing required fields
         </p>
     </dialog>
     <!-- hidden buttons to not throw errors in the console -->
@@ -87,10 +112,10 @@
     <button id="loginBtn" style="display: none;">Login</button>
     <!-- scripts to handle logic -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.js"></script>
-    <script type="text/javascript" src="state.js"></script>
-    <script type="text/javascript" src="ajax.js"></script>
-    <script type="text/javascript" src="users.js"></script>
-    <script type="text/javascript" src="wishlist.js"></script>
+    <script src="state.js"></script>
+    <script src="ajax.js"></script>
+    <script src="users.js"></script>
+    <script src="wishlist.js"></script>
     <script>indexLoginCheck();</script>
     <noscript>You need to turn on JavaScript for this page to work!</noscript>
 </body>

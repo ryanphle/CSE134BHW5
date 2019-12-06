@@ -4,8 +4,8 @@ function createPayloadURI(values) {
     let ret = "";
     for (var key in values) {
         let val = DOMPurify.sanitize(values[key]);
-        if (!val) {
-            val = "No " + key;
+        if ((key == "comment" && !val.substring(1,val.length)) || !val) {
+            val += "No " + key;
         }
         ret += key + "=" + encodeURIComponent(val) + "&";
     }

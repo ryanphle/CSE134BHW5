@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Login</title>
     <link type="text/css" rel="stylesheet" href="login.css"/>
@@ -13,10 +13,11 @@
     <button id="logoutBtn" style="display: none;">Logout</button>
     <button id="createBtn" style="display: none;">Submit</button>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.js"></script>
-    <script type="text/javascript" src="state.js"></script>
-    <script type="text/javascript" src="ajax.js"></script>
-    <script type="text/javascript" src="users.js"></script>
+    <script src="state.js"></script>
+    <script src="ajax.js"></script>
+    <script src="users.js"></script>
     <button onclick="redirectToCreateUser()">Create an Account</button>
+    <p id="loginErrorMsg" style="display: none;">*Incorrect username/email or password.</p>
     <script>loginPageCheck();</script>
     <noscript>You need to turn on JavaScript for this page to work!</noscript>
 </body>
